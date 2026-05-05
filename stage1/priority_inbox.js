@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const NOTIFICATION_API = 'http://20.207.122.201/evaluation-service/notifications';
+const NOTIFICATION_API = 'http://20.244.56.144/evaluation-service/notifications';
 
 // Priority weights mapping
 const WEIGHTS = {

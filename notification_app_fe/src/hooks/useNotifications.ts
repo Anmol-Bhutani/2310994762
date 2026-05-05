@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Log } from 'logging_middleware';
+import { Log } from '../utils/logger.js';
 
 export interface Notification {
   ID: string;
@@ -8,8 +8,6 @@ export interface Notification {
   Timestamp: string;
   isViewed?: boolean;
 }
-
-const NOTIFICATION_API = 'http://20.207.122.201/evaluation-service/notifications';
 
 export const useNotifications = (typeFilter?: string, limit?: number, page?: number) => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -22,32 +20,29 @@ export const useNotifications = (typeFilter?: string, limit?: number, page?: num
     const fetchNotifications = async () => {
       try {
         setLoading(true);
-        const token = process.env.NEXT_PUBLIC_API_TOKEN;
-        
-        if (!token) {
-          throw new Error("No API token found. Please register first.");
-        }
+        setError('');
 
-        let url = new URL(NOTIFICATION_API);
-        if (typeFilter) url.searchParams.append('notification_type', typeFilter);
-        if (limit) url.searchParams.append('limit', limit.toString());
-        if (page) url.searchParams.append('page', page.toString());
+        // Use internal Next.js API proxy to avoid CORS issues
+        const params = new URLSearchParams();
+        if (typeFilter) params.append('notification_type', typeFilter);
+        if (limit) params.append('limit', limit.toString());
+        if (page) params.append('page', page.toString());
 
-        const res = await fetch(url.toString(), {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
+        const url = `/api/notifications${params.toString() ? '?' + params.toString() : ''}`;
+        const res = await fetch(url);
 
         if (!res.ok) {
-          throw new Error(`API returned ${res.status}`);
+          const err = await res.json();
+          throw new Error(err.error || `API returned ${res.status}`);
         }
 
         const data = await res.json();
-        const rawNotifs: Notification[] = data.notifications || [];
+        const rawNotifs: Notification[] = data.notifications || data.data || [];
 
         // Load viewed state from localStorage
         const viewedIds = JSON.parse(localStorage.getItem('viewed_notifications') || '[]');
 
-        const processed = rawNotifs.map(n => ({
+        const processed = rawNotifs.map((n: Notification) => ({
           ...n,
           isViewed: viewedIds.includes(n.ID)
         }));
@@ -70,11 +65,9 @@ export const useNotifications = (typeFilter?: string, limit?: number, page?: num
     if (!viewedIds.includes(id)) {
       viewedIds.push(id);
       localStorage.setItem('viewed_notifications', JSON.stringify(viewedIds));
-      
-      setNotifications(prev => prev.map(n => 
+      setNotifications(prev => prev.map(n =>
         n.ID === id ? { ...n, isViewed: true } : n
       ));
-      
       Log('frontend', 'info', 'state', `Marked notification ${id} as viewed`);
     }
   };
