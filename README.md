@@ -1,48 +1,40 @@
-# Medical Intelligence Notification Hub 🏥
+# Afford Medical Technologies - Frontend Evaluation
 
-A premium, production-grade notification management system built for Afford Medical Technologies. This dashboard centralizes campus updates, placement alerts, and result notifications with an intelligence-driven prioritization engine.
+This project is a notification management system designed for Afford Medical Technologies. The dashboard centralizes campus alerts, results, and placement notifications into a single, intuitive interface with a custom prioritization engine.
 
-## 🚀 Key Features
+## Demo Video
+You can watch the full demonstration of the application here:
+[Demo Video Link](https://drive.google.com/file/d/1lTm7aOokdJbqHjcn23GYzYAC4M9bjym7/view?usp=sharing)
 
-- **Clinical Glassmorphism UI:** A modern, high-end dashboard built with Next.js and Material UI.
-- **Priority Intelligence:** An algorithm-based "Priority Inbox" that sorts notifications using weight-based importance and time decay.
-- **Real-time Filtering:** Seamless categorization between Placements, Results, and Events.
-- **Secure API Proxy:** Built-in server-side proxy to handle authentication and bypass CORS.
-- **Mandatory Logger Integration:** Custom middleware integrated to track system actions.
-- **Responsive Design:** Fully optimized for all screen sizes.
+## Features
 
-## 🛠 Tech Stack
+- **Dashboard Interface:** A professional dashboard using Material UI and Next.js with custom styling.
+- **Priority Scoring:** A specialized "Priority Inbox" that automatically sorts notifications based on their importance and recency.
+- **Category Filtering:** Ability to filter notifications by Placement, Result, and Event categories.
+- **API Integration:** Server-side proxy handling for secure authentication and reliable data fetching.
+- **Logging System:** Integration of a mandatory logging middleware to track application events.
 
-- **Frontend:** Next.js 15 (App Router), TypeScript, Material UI, Framer Motion (Animations), Lucide (Icons).
-- **Middleware:** Custom logging package.
-- **API:** University Evaluation Service.
+## Technical Implementation
 
-## 📦 Installation & Setup
+- **Next.js 15:** Utilizing the App Router and modern React patterns.
+- **Material UI:** Used for the core design system and layouts.
+- **Framer Motion:** Added for smooth page transitions and list animations.
+- **Local Proxy:** A Next.js API route handles communication with the assessment server to manage tokens and avoid CORS issues.
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Anmol-Bhutani/2310994762.git
-   cd 2310994762
-   ```
+## Setup and Installation
 
-2. **Initialize Credentials:**
-   ```bash
-   node setup.js
-   ```
+1. Clone the repository and navigate to the project root.
+2. Run `node setup.js` to initialize the authentication credentials.
+3. Move into the `notification_app_fe` directory.
+4. Run `npm install` to install dependencies.
+5. Run `npm run dev` to start the local development server.
+6. The application will be available at http://localhost:3000.
 
-3. **Run the Application:**
-   ```bash
-   cd notification_app_fe
-   npm install
-   npm run dev
-   ```
-
-4. **Access the Dashboard:**
-   Open [http://localhost:3000](http://localhost:3000)
-
-## 🎥 Submission Materials
-- **Demo Video:** Located in the `/Demo Video` folder.
-- **Screenshots:** High-resolution captures located in the `/Screenshots` folder.
+## Project Structure
+- **/Demo Video:** Local copy of the demonstration recording.
+- **/Screenshots:** UI captures of the final implementation.
+- **/notification_app_fe:** The Next.js frontend application.
+- **/logging_middleware:** The custom logging package.
 
 ---
-**Developed by Anmol Bhutani**
+Submitted by Anmol Bhutani
